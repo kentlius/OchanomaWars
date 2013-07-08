@@ -12,7 +12,7 @@ public class Tower : MonoBehaviour {
             teki.gameObject.GetComponent<EnemyController>();
 
         /* 塔にダメージを適用する */
-        hp -= enemyController.attack;
+        hp -= enemyController.power;
 
         /* 敵を消す */
         GameObject.Destroy(enemyController.gameObject);

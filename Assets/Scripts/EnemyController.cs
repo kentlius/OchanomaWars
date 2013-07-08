@@ -12,8 +12,10 @@ public class EnemyController : MonoBehaviour {
     /* 移動に使うキャラクターコントローラー */
     public CharacterController moveController;
 
+    /* HP */
+    public int hp = 30;
     /* 攻撃力 */
-    public int attack = 10;
+    public int power = 10;
     /* 速さ */
     public float speed = 10f;
     Vector3 movement = Vector3.forward;
@@ -44,6 +46,11 @@ public class EnemyController : MonoBehaviour {
                 UpdateMovement();
             }
         }
+
+        /* HPがなければ */
+        if (hp <= 0) {
+            GameObject.Destroy(this.gameObject);
+        }
     }
 
     /* この敵が破壊されたら敵の数を減らす */
@@ -57,5 +64,10 @@ public class EnemyController : MonoBehaviour {
             return;
         transform.LookAt(roadPoints[currentPointNumber]);
         movement = transform.forward.normalized * speed;
+    }
+
+    /* 敵から攻撃を受けたとき */
+    public void OnAttack (BatteryController attacker) {
+        hp -= attacker.power;
     }
 }
