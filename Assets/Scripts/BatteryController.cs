@@ -41,14 +41,18 @@ public class BatteryController : MonoBehaviour {
         targetEnemy = null;
     }
 
-    /* 的に攻撃する */
+    /* 敵に攻撃する */
     void AttackTo (EnemyController enemy) {
         /* 砲身からの炎 */
-        GameObject.Instantiate(activeFirePrefab,
-                               muzzlePosition.position, Quaternion.identity);
+        Transform activeFire = (GameObject.Instantiate(activeFirePrefab) as GameObject).GetComponent<Transform>();
+        activeFire.parent = muzzlePosition;
+        activeFire.localPosition = Vector3.zero;
+
         /* 敵の炎 */
-        GameObject.Instantiate(passiveFirePrefab,
-                               enemy.transform.position, Quaternion.identity);
+        Transform passiveFire = (GameObject.Instantiate(passiveFirePrefab) as GameObject).GetComponent<Transform>();
+        passiveFire.parent = enemy.transform;
+        passiveFire.localPosition = Vector3.zero;
+
         enemy.OnAttack(this);
     }
 }
