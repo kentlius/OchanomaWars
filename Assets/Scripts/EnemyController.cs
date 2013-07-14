@@ -20,7 +20,6 @@ public class EnemyController : MonoBehaviour {
     public float speed = 10f;
     Vector3 movement = Vector3.forward;
 
-    // Use this for initialization
     void Start () {
         /* 敵の目的地を決める */
         UpdateMovement();
@@ -28,8 +27,7 @@ public class EnemyController : MonoBehaviour {
         enemyCount++;
     }
 
-    // Update is called once per frame
-    void Update () {
+    void FixedUpdate () {
         /* 次の目的地があれば */
         if (currentPointNumber < roadPoints.Length) {
             /* 次の目的地に向かって動く */
@@ -46,10 +44,14 @@ public class EnemyController : MonoBehaviour {
                 UpdateMovement();
             }
         }
+    }
 
+    void LateUpdate () {
         /* HPがなければ */
         if (hp <= 0) {
             GameObject.Destroy(this.gameObject);
+        } else {
+            UpdateMovement();
         }
     }
 

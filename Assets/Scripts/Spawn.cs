@@ -23,6 +23,9 @@ public class Spawn : MonoBehaviour {
     public float spawnInterval = 5f;
     float lastSpawnTime = 0f;
 
+    /* リザルト画面を表示するオブジェクト */
+    public ResultScreen resultScreen;
+
     // Update is called once per frame
     void Update () {
         /* 時間になったら */
@@ -42,8 +45,16 @@ public class Spawn : MonoBehaviour {
             } else if (EnemyController.enemyCount == 0) {
                 enemyIndex = 0;
                 waveIndex++;
+                ShowResult();
             }
             lastSpawnTime = Time.time;
         }
+    }
+
+    /* 完了したウェーブのリザルト画面を表示 */
+    void ShowResult () {
+        print("Show Result");
+        resultScreen.gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

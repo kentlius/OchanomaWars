@@ -17,4 +17,8 @@ public class Tower : MonoBehaviour {
         /* 敵を消す */
         GameObject.Destroy(enemyController.gameObject);
     }
+
+    void OnGUI () {
+        GUI.Box(new Rect(10, 10, 100, 20), "HP: " + hp.ToString());
+    }
 }
