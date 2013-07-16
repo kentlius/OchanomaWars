@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour {
     public float speed = 10f;
     Vector3 movement = Vector3.forward;
 
+    /* この敵の初め */
     void Start () {
         /* 敵の目的地を決める */
         UpdateMovement();
@@ -27,6 +28,7 @@ public class EnemyController : MonoBehaviour {
         enemyCount++;
     }
 
+    /* 確実に呼ばれるUpdate */
     void FixedUpdate () {
         /* 次の目的地があれば */
         if (currentPointNumber < roadPoints.Length) {
@@ -46,9 +48,11 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
+    /* Updateの後に呼ばれる関数 */
     void LateUpdate () {
         /* HPがなければ */
         if (hp <= 0) {
+            /* この敵を破壊する */
             GameObject.Destroy(this.gameObject);
         } else {
             UpdateMovement();

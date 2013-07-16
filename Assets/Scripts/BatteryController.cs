@@ -3,25 +3,27 @@ using System.Collections;
 
 public class BatteryController : MonoBehaviour {
 
+    /* 放題の攻撃力 */
     public int power = 50;
+    /* 現在の攻撃対象 */
     public EnemyController targetEnemy;
 
+    /* この砲台が攻撃をする間隔 */
     public float attackInterval = 0.8f;
     float lastAttackTime = 0f;
 
+    /* この砲台の発射口の場所 */
     public Transform muzzlePosition;
+    /* 炎のプレファブ */
     public GameObject activeFirePrefab;
     public GameObject passiveFirePrefab;
 
-    // Use this for initialization
-    void Start () {
-    }
-
-    // Update is called once per frame
+    /* 普通のUpdate */
     void Update () {
         if (targetEnemy != null) {
             transform.LookAt(targetEnemy.transform);
 
+            /* 前回攻撃してから時間が立っていたら攻撃する */
             if (lastAttackTime + attackInterval < Time.time) {
                 AttackTo(targetEnemy);
                 lastAttackTime = Time.time;
@@ -44,12 +46,14 @@ public class BatteryController : MonoBehaviour {
     /* 敵に攻撃する */
     void AttackTo (EnemyController enemy) {
         /* 砲身からの炎 */
-        Transform activeFire = (GameObject.Instantiate(activeFirePrefab) as GameObject).GetComponent<Transform>();
+        Transform activeFire = (GameObject.Instantiate(activeFirePrefab) as
+                                GameObject).GetComponent<Transform>();
         activeFire.parent = muzzlePosition;
         activeFire.localPosition = Vector3.zero;
 
         /* 敵の炎 */
-        Transform passiveFire = (GameObject.Instantiate(passiveFirePrefab) as GameObject).GetComponent<Transform>();
+        Transform passiveFire = (GameObject.Instantiate(passiveFirePrefab) as
+                                 GameObject).GetComponent<Transform>();
         passiveFire.parent = enemy.transform;
         passiveFire.localPosition = Vector3.zero;
 

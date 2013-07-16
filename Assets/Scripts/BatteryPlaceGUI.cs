@@ -7,24 +7,30 @@ public class BatteryPlaceGUI : MonoBehaviour {
     public GameObject[] batteryPrefabs;
     public BatteryPlacer batteryPlacer;
 
+    /* 砲台を選ぶ画面の大きさ */
     Vector2 windowSize;
     Rect windowRect;
     Vector2 buttonSize;
 
+    /* GUIを表示する */
     void OnGUI () {
+        /* 置く砲台がなければこの処理を終える */
         if (batteryPlacer.batteryPrefab != null)
             return;
 
+        /* 砲台を選ぶ画面の大きさを決める */
         windowSize = new Vector2(Screen.width - 20, Screen.height * 0.2f);
         windowRect =
             new Rect(10, Screen.height - windowSize.y,
                      windowSize.x, windowSize.y);
 
+        /* ボタンの大きさを決める */
         buttonSize = new Vector2(120, 48);
 
-        // Make a background box
+        /* 砲台を選ぶ画面を表示する */
         GUI.Box(windowRect, "Units");
 
+        /* 砲台を選ぶボタンを表示する */
         for (int i = 0; i < batteryPrefabs.Length; i++) {
             if(GUI.Button(
                         new Rect(windowRect.xMin + 10 + buttonSize.x * i,

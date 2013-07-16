@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Tower : MonoBehaviour {
 
+    /* この塔の耐久力(HP) */
     public int hp = 100;
 
     /* 敵がぶつかってきたとき */
@@ -18,6 +19,7 @@ public class Tower : MonoBehaviour {
         GameObject.Destroy(enemyController.gameObject);
     }
 
+    /* GUIを表示する */
     void OnGUI () {
         GUI.Box(new Rect(10, 10, 100, 20), "HP: " + hp.ToString());
     }

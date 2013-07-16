@@ -3,17 +3,18 @@ using System.Collections;
 
 public class TimeDestroy : MonoBehaviour {
 
-    public float deathTime = 3f;
+    /* 自動で破壊されるまでの時間 */
+    public float destroyTime = 3f;
     float bornTime;
 
-    // Use this for initialization
+    /* 時間を数え始める */
     void Start () {
         bornTime = Time.time;
     }
 
-    // Update is called once per frame
+    /* 時間が経過したらオブジェクトを破壊する */
     void Update () {
-        if (bornTime + deathTime < Time.time) {
+        if (bornTime + destroyTime < Time.time) {
             GameObject.Destroy(gameObject);
         }
     }
