@@ -4,7 +4,7 @@ using System.Collections;
 public class ResultScreen : MonoBehaviour {
 
     public Spawn enemySpawn;
-    public BatterySpawn batterySpawn;
+    public BatteryPlaceGUI batterySpawn;
     public Vector2 windowSize = new Vector2(800, 600);
     Rect windowRect;
 

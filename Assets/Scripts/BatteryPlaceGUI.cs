@@ -1,21 +1,18 @@
 using UnityEngine;
 using System.Collections;
 
-public class BatterySpawn : MonoBehaviour {
+public class BatteryPlaceGUI : MonoBehaviour {
 
+    /* 砲台のプレファブ */
     public GameObject[] batteryPrefabs;
-    public BatteryPlacer batteryPlace;
+    public BatteryPlacer batteryPlacer;
 
     Vector2 windowSize;
     Rect windowRect;
     Vector2 buttonSize;
 
-    void Strat () {
-
-    }
-
     void OnGUI () {
-        if (batteryPlace.batteryPrefab != null)
+        if (batteryPlacer.batteryPrefab != null)
             return;
 
         windowSize = new Vector2(Screen.width - 20, Screen.height * 0.2f);
@@ -34,7 +31,7 @@ public class BatterySpawn : MonoBehaviour {
                                  windowRect.yMax - buttonSize.y - 10,
                                  buttonSize.x, buttonSize.y)
                         , batteryPrefabs[i].name)) {
-                batteryPlace.batteryPrefab = batteryPrefabs[i];
+                batteryPlacer.batteryPrefab = batteryPrefabs[i];
             }
         }
     }
