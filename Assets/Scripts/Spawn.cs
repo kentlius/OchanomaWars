@@ -26,6 +26,9 @@ public class Spawn : MonoBehaviour {
     /* リザルト画面を表示するオブジェクト */
     public ResultScreen resultScreen;
 
+    /* マナを管理するオブジェクト */
+    public BatteryPlacer batteryPlacer;
+
     // Update is called once per frame
     void Update () {
         /* 時間になったら */
@@ -39,6 +42,7 @@ public class Spawn : MonoBehaviour {
                 newEnemy.transform.parent = enemyRoot;
                 newEnemy.transform.position = this.transform.position;
                 newEnemy.roadPoints = this.roadPoints;
+                newEnemy.batteryPlacer = this.batteryPlacer;
 
                 enemyIndex++;
                 /* すでにすべての敵が出てきていてその敵が全滅していれば次のウェーブに移行する */

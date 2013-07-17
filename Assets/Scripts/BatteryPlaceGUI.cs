@@ -5,12 +5,25 @@ public class BatteryPlaceGUI : MonoBehaviour {
 
     /* 砲台のプレファブ */
     public GameObject[] batteryPrefabs;
+    public BatteryController[] batteryInformations;
     public BatteryPlacer batteryPlacer;
 
     /* 砲台を選ぶ画面の大きさ */
     Vector2 windowSize;
     Rect windowRect;
     Vector2 buttonSize;
+
+    void Start () {
+        FetchBatteryInformations();
+    }
+
+    /* 砲台の情報を取得する */
+    void FetchBatteryInformations () {
+        batteryInformations = new BatteryController[batteryPrefabs.Length];
+        for(int i = 0; i < batteryPrefabs.Length; i++) {
+            batteryInformations[i] = batteryPrefabs[i].GetComponent<BatteryController>();
+        }
+    }
 
     /* GUIを表示する */
     void OnGUI () {
@@ -32,12 +45,14 @@ public class BatteryPlaceGUI : MonoBehaviour {
 
         /* 砲台を選ぶボタンを表示する */
         for (int i = 0; i < batteryPrefabs.Length; i++) {
-            if(GUI.Button(
-                        new Rect(windowRect.xMin + 10 + buttonSize.x * i,
-                                 windowRect.yMax - buttonSize.y - 10,
-                                 buttonSize.x, buttonSize.y)
-                        , batteryPrefabs[i].name)) {
-                batteryPlacer.batteryPrefab = batteryPrefabs[i];
+            if (batteryInformations[i].cost <= batteryPlacer.mana) {
+                if(GUI.Button(
+                            new Rect(windowRect.xMin + 10 + buttonSize.x * i,
+                                     windowRect.yMax - buttonSize.y - 10,
+                                     buttonSize.x, buttonSize.y)
+                            , batteryPrefabs[i].name)) {
+                    batteryPlacer.batteryPrefab = batteryPrefabs[i];
+                }
             }
         }
     }

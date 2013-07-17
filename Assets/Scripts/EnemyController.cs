@@ -11,6 +11,8 @@ public class EnemyController : MonoBehaviour {
     int currentPointNumber = 0;
     /* 移動に使うキャラクターコントローラー */
     public CharacterController moveController;
+    /* マナを管理するオブジェクト */
+    public BatteryPlacer batteryPlacer;
 
     /* HP */
     public int hp = 30;
@@ -19,6 +21,8 @@ public class EnemyController : MonoBehaviour {
     /* 速さ */
     public float speed = 10f;
     Vector3 movement = Vector3.forward;
+    /* 倒したときのボーナスマナ */
+    public int bonusMana = 10;
 
     /* この敵の初め */
     void Start () {
@@ -53,7 +57,9 @@ public class EnemyController : MonoBehaviour {
         /* HPがなければ */
         if (hp <= 0) {
             /* この敵を破壊する */
-            GameObject.Destroy(this.gameObject);
+            GameObject.Destroy(gameObject);
+            /* ボーナスマナを追加 */
+            batteryPlacer.mana += bonusMana;
         } else {
             UpdateMovement();
         }

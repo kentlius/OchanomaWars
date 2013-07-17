@@ -3,6 +3,9 @@ using System.Collections;
 
 public class BatteryPlacer : MonoBehaviour {
 
+    /* マナ */
+    public int mana = 100;
+
     /* 砲台を入れておくゲームオブジェクト */
     public Transform batteryRoot;
     /* 砲台のプレファブ */
@@ -10,7 +13,6 @@ public class BatteryPlacer : MonoBehaviour {
 
     /* カーソル */
     public Light cursor;
-
     /* 床のレイヤー */
     public LayerMask floorLayer = 1 << 11;
 
@@ -18,16 +20,17 @@ public class BatteryPlacer : MonoBehaviour {
         if (batteryPrefab == null)
             return;
 
+        /* ドロップ操作 */
+        if (Input.GetMouseButtonUp(0) && cursor.color == Color.green) {
+            PlaceBatteryToCursorPosition();
+        }
         /* ドラッグ操作 */
         if (Input.GetMouseButton(0)) {
             cursor.enabled = true;
             PlaceCursor();
         } else {
             cursor.enabled = false;
-        }
-        /* ドロップ操作 */
-        if (Input.GetMouseButtonUp(0) && cursor.color == Color.green) {
-            PlaceBatteryToCursorPosition();
+            cursor.color = Color.red;
         }
     }
 
@@ -54,10 +57,14 @@ public class BatteryPlacer : MonoBehaviour {
 
     /* カーソルの位置に基づいて砲台を置く */
     void PlaceBatteryToCursorPosition () {
-        Transform batteryTransform = (GameObject.Instantiate(batteryPrefab) as
-                                      GameObject).GetComponent<Transform>();
-        batteryTransform.parent = batteryRoot;
-        batteryTransform.position = cursor.transform.position + Vector3.down * 100;
+        GameObject battery = (GameObject.Instantiate(batteryPrefab) as GameObject);
+
+        /* 砲台のコストを支払う */
+        mana -= battery.GetComponent<BatteryController>().cost;
+
+        /* 砲台を設置する */
+        battery.transform.parent = batteryRoot;
+        battery.transform.position = cursor.transform.position + Vector3.down * 100;
         batteryPrefab = null;
     }
 }

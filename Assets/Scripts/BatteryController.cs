@@ -3,7 +3,10 @@ using System.Collections;
 
 public class BatteryController : MonoBehaviour {
 
-    /* 放題の攻撃力 */
+    /* この砲台のコスト */
+    public int cost = 30;
+
+    /* 砲台の攻撃力 */
     public int power = 50;
     /* 現在の攻撃対象 */
     public EnemyController targetEnemy;
