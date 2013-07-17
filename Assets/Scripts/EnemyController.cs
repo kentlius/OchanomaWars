@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour {
     /* 移動に使うキャラクターコントローラー */
     public CharacterController moveController;
     /* マナを管理するオブジェクト */
+    [HideInInspector]
     public BatteryPlacer batteryPlacer;
 
     /* HP */
