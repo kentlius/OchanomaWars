@@ -35,11 +35,11 @@ public class Spawn : MonoBehaviour {
         if (lastSpawnTime + spawnInterval < Time.time ) {
             /* 敵が全て出ていなければ敵を出す */
             if (enemyIndex < waves[waveIndex].enemies.Length) {
-                // print(waveIndex + " - " + enemyIndex);
-                EnemyController newEnemy = (Instantiate(waves[waveIndex].enemies[enemyIndex]) as
+                EnemyController newEnemy = (Instantiate(waves[waveIndex].enemies[enemyIndex]
+                                                        , this.transform.position
+                                                        , Quaternion.identity) as
                                             GameObject).GetComponent<EnemyController>();
                 newEnemy.transform.parent = enemyRoot;
-                newEnemy.transform.position = this.transform.position;
                 newEnemy.roadPoints = this.roadPoints;
                 newEnemy.batteryPlacer = this.batteryPlacer;
 
