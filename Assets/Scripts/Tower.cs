@@ -15,6 +15,10 @@ public class Tower : MonoBehaviour {
         /* 塔にダメージを適用する */
         hp -= enemyController.power;
 
+        /* もし、HPが0未満だったらゲームオーバー画面を表示する */
+        if (hp < 0)
+            Application.LoadLevel("GameOverScreen");
+
         /* 敵を消す */
         GameObject.Destroy(enemyController.gameObject);
     }
