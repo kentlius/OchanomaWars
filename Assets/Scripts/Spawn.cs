@@ -32,8 +32,7 @@ public class Spawn : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         /* 時間になったら */
-        if (lastSpawnTime + spawnInterval < Time.time
-                && waveIndex < waves.Length) {
+        if (lastSpawnTime + spawnInterval < Time.time ) {
             /* 敵が全て出ていなければ敵を出す */
             if (enemyIndex < waves[waveIndex].enemies.Length) {
                 // print(waveIndex + " - " + enemyIndex);
@@ -49,7 +48,13 @@ public class Spawn : MonoBehaviour {
             } else if (EnemyController.enemyCount == 0) {
                 enemyIndex = 0;
                 waveIndex++;
-                ShowResult();
+                /* 次のウェーブがあればリザルト画面を表示する */
+                if (waveIndex < waves.Length) {
+                    ShowResult();
+                    /* 次のウェーブがなければゲームクリア画面を表示する */
+                } else {
+                    Application.LoadLevel("GameClearScreen");
+                }
             }
             lastSpawnTime = Time.time;
         }
