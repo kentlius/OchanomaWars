@@ -15,6 +15,8 @@ public class BatteryPlacer : MonoBehaviour {
     public Light cursor;
     /* 床のレイヤー */
     public LayerMask floorLayer = 1 << 11;
+    /* 砲台を上に置いてはいけない物のレイヤー */
+    public LayerMask pointLayer;
 
     void Update () {
         if (batteryPrefab == null)
@@ -40,8 +42,8 @@ public class BatteryPlacer : MonoBehaviour {
         RaycastHit hitPlace = new RaycastHit();
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         /* もし、なにかをタッチしていたら */
-        if (Physics.Raycast (cameraRay.origin, cameraRay.direction, out hitPlace,
-                             Mathf.Infinity)) {
+        if (Physics.Raycast(cameraRay.origin, cameraRay.direction, out hitPlace,
+                            Mathf.Infinity, pointLayer)) {
             /* カーソルを配置 */
             cursor.transform.position = hitPlace.point + Vector3.up * 100;
             /* カーソルが砲台を置けない場所を指していたら */

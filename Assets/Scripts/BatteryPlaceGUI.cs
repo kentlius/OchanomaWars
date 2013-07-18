@@ -3,15 +3,22 @@ using System.Collections;
 
 public class BatteryPlaceGUI : MonoBehaviour {
 
-    /* 砲台のプレファブ */
-    public GameObject[] batteryPrefabs;
-    public BatteryController[] batteryInformations;
+    /* 実際に砲台を設置する機能を持つオブジェクト */
     public BatteryPlacer batteryPlacer;
 
+    /* 砲台のプレファブ */
+    public GameObject[] batteryPrefabs;
+    BatteryController[] batteryInformations;
+
     /* 砲台を選ぶ画面の大きさ */
-    Vector2 windowSize;
+    public Vector2 windowSize = new Vector2(Screen.width, Screen.height * 0.3f);
     Rect windowRect;
-    Vector2 buttonSize;
+    /* 砲台を選ぶ画面の背景 */
+    public Texture background;
+    /* ボタンの大きさ */
+    public Vector2 buttonSize = new Vector2(120, 80);
+    Rect buttonRect;
+    public GUIStyle buttonStyle = new GUIStyle();
 
     void Start () {
         FetchBatteryInformations();
@@ -32,27 +39,24 @@ public class BatteryPlaceGUI : MonoBehaviour {
             return;
 
         /* 砲台を選ぶ画面の大きさを決める */
-        windowSize = new Vector2(Screen.width - 20, Screen.height * 0.2f);
         windowRect =
-            new Rect(10, Screen.height - windowSize.y,
+            new Rect(0, Screen.height - windowSize.y,
                      windowSize.x, windowSize.y);
 
-        /* ボタンの大きさを決める */
-        buttonSize = new Vector2(120, 48);
-
         /* 砲台を選ぶ画面を表示する */
-        GUI.Box(windowRect, "Units");
+        GUI.DrawTexture(windowRect, background, ScaleMode.StretchToFill, true, 0.0F);
 
         /* 砲台を選ぶボタンを表示する */
         for (int i = 0; i < batteryPrefabs.Length; i++) {
+            buttonRect = new Rect(windowRect.xMin + 10 + buttonSize.x * i,
+                                  windowRect.yMax - buttonSize.y - 6,
+                                  buttonSize.x, buttonSize.y);
             if (batteryInformations[i].cost <= batteryPlacer.mana) {
-                if(GUI.Button(
-                            new Rect(windowRect.xMin + 10 + buttonSize.x * i,
-                                     windowRect.yMax - buttonSize.y - 10,
-                                     buttonSize.x, buttonSize.y)
-                            , batteryPrefabs[i].name)) {
+                if(GUI.Button(buttonRect, batteryInformations[i].availableIcon, buttonStyle)) {
                     batteryPlacer.batteryPrefab = batteryPrefabs[i];
                 }
+            } else {
+                GUI.DrawTexture(buttonRect, batteryInformations[i].unavailableIcon);
             }
         }
     }

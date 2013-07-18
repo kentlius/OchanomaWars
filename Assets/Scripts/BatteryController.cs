@@ -21,6 +21,10 @@ public class BatteryController : MonoBehaviour {
     public GameObject activeFirePrefab;
     public GameObject passiveFirePrefab;
 
+    /* このユニットのアイコン */
+    public Texture availableIcon;
+    public Texture unavailableIcon;
+
     /* 普通のUpdate */
     void Update () {
         if (targetEnemy != null) {
